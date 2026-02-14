@@ -1,0 +1,53 @@
+# GovTalent — Generative Engine Optimization Map
+
+> A public sector recruitment business.
+
+---
+
+## Pages
+
+### Home
+https://govtalent-ad8137a6.zappy5.app
+
+### For Candidates
+https://govtalent-ad8137a6.zappy5.app/candidates
+
+### For Employers
+https://govtalent-ad8137a6.zappy5.app/employers
+
+### Contact
+https://govtalent-ad8137a6.zappy5.app/contact
+
+## Legal & Policy
+
+### Privacy Policy
+https://govtalent-ad8137a6.zappy5.app/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://govtalent-ad8137a6.zappy5.app/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://govtalent-ad8137a6.zappy5.app/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+# Business Context (for LLM understanding)
+
+## About GovTalent
+GovTalent is a business in the public sector recruitment industry.
+
+## Target Audience
+public sector organizations, government companies, local government, job candidates
+
+## Industry
+public sector recruitment
+
+---
+
+# Additional Resources
+
+- **Sitemap**: https://govtalent-ad8137a6.zappy5.app/sitemap.xml
+- **Robots.txt**: https://govtalent-ad8137a6.zappy5.app/robots.txt

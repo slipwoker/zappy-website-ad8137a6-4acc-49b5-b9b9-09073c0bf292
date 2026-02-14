@@ -1,0 +1,674 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GovTalent | recruitment management system</title>
+  <meta name="description" content="Home - GovTalent provides professional public sector recruitment services. Specializing in recruitment management system.">
+  <meta name="keywords" content="recruitment management system, recruitment management software, staffing management software, GovTalent">
+  <meta name="robots" content="index, follow">
+  
+  <meta property="og:title" content="GovTalent | recruitment management system">
+  <meta property="og:description" content="Home - GovTalent provides professional public sector recruitment services. Specializing in recruitment management system.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GovTalent | recruitment management system">
+  <meta name="twitter:description" content="Home - GovTalent provides professional public sector recruitment services. Specializing in recruitment management system.">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+<!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: 'ad8137a6-4acc-49b5-b9b9-09073c0bf292',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: #333 !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))), .sub-menu:not(:has(li)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .sub-menu.mobile-expanded { max-height: 500px !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: 44px !important; background: transparent !important; border: none !important; cursor: pointer !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+</head>
+<body>
+  <nav class="navbar">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+  
+  <button class="phone-header-btn" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+  
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/" class="logo-link">
+        <img src="/assets/business-logo.webp" alt="GovTalent" class="logo" />
+      </a>
+    </div>
+    
+    <ul class="nav-menu" id="navMenu"><li><a href="/candidates">For Candidates</a></li><li><a href="/employers">For Employers</a></li></ul>
+    
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">Contact</a>
+    </div>
+  </div>
+</nav>
+  
+  <main>
+    <section class="home-hero-section" data-layout-spec="Home-hero" data-hero-type="fullscreen-scrim">
+  <!-- Background image layer -->
+  <img data-hero-bg="true" data-placeholder="home-hero-bg" data-context="Wide-angle photo of diverse public sector workers collaborating in a bright community center: a mix of ages and ethnicities, some in casual professional attire, gathered around a table reviewing documents and laptops, warm natural lighting from large windows, real community setting with bulletin boards and civic posters visible in soft focus background, authentic candid moment showing teamwork and public service, documentary photography style, warm color grading" class="home-hero-bg" width="1920" height="1080" src="/assets/site-home-hero-bg.webp" alt="Public sector professionals collaborating in community setting">
+  
+  <!-- Gradient scrim overlay for text legibility -->
+  <div class="home-hero-scrim" aria-hidden="true"></div>
+  
+  <!-- Paper grain texture overlay -->
+  <div class="home-hero-texture" aria-hidden="true"></div>
+  
+  <!-- Text overlay card -->
+  <div class="home-hero-overlay-card">
+    <h1>Public sector hiring, made human.</h1>
+    <h3>Clear role storytelling, respectful candidate experience, and reliable support for teams hiring for community impact.</h3>
+    <div class="home-hero-cta-row">
+      <a href="/contact" class="btn-primary">Talk to our team</a>
+      <a href="/employers" class="btn-secondary">See how it works</a>
+    </div>
+  </div>
+  
+  <!-- Bottom paper-tear divider -->
+  <div class="home-hero-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 L0,32 Q40,28 80,34 T160,30 Q200,35 240,28 T320,33 Q360,29 400,35 T480,31 Q520,36 560,30 T640,34 Q680,29 720,35 T800,31 Q840,36 880,30 T960,34 Q1000,29 1040,35 T1120,31 Q1160,36 1200,32 L1200,60 Z" fill="var(--bg-light)"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="home-services-section" data-layout-spec="Home-services">
+  <div class="home-services-container">
+    <div class="home-services-content-column">
+      <h2>Support across the full hiring journey</h2>
+      <p>We help public organizations communicate roles clearly, evaluate fairly, and keep candidates informed.</p>
+      <ul class="home-services-bullets">
+        <li>
+          <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+            <path d="M7 10L9 12L13 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span>Role story + impact framing</span>
+        </li>
+        <li>
+          <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+            <path d="M7 10L9 12L13 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span>Structured screening guidance</span>
+        </li>
+        <li>
+          <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+            <path d="M7 10L9 12L13 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span>Candidate communication templates</span>
+        </li>
+        <li>
+          <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+            <path d="M7 10L9 12L13 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span>Inclusive, accessible experiences</span>
+        </li>
+      </ul>
+    </div>
+    <div class="home-services-cards-column">
+      <div class="home-services-card">
+        <div class="home-services-card-icon">
+          <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 14L12 18L20 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <rect x="4" y="4" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"></rect>
+          </svg>
+        </div>
+        <h3>Job story crafting</h3>
+        <p>Turn dry job descriptions into compelling narratives that show candidates the real impact they'll have.</p>
+      </div>
+      <div class="home-services-card">
+        <div class="home-services-card-icon">
+          <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 6V22M6 14H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            <circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+          </svg>
+        </div>
+        <h3>Process clarity</h3>
+        <p>Build transparent hiring workflows that keep every stakeholder aligned and candidates informed at each step.</p>
+      </div>
+      <div class="home-services-card">
+        <div class="home-services-card-icon">
+          <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 18C16.7614 18 19 15.7614 19 13C19 10.2386 16.7614 8 14 8C11.2386 8 9 10.2386 9 13C9 15.7614 11.2386 18 14 18Z" stroke="currentColor" stroke-width="1.5" fill="none"></path>
+            <path d="M14 18V24M10 21H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <h3>Candidate care</h3>
+        <p>Deliver a respectful, human experience through thoughtful communication and timely updates.</p>
+      </div>
+      <div class="home-services-card">
+        <div class="home-services-card-icon">
+          <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+            <circle cx="18" cy="18" r="4" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+            <path d="M13 13L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <h3>Hiring team enablement</h3>
+        <p>Equip your team with structured tools and best practices to evaluate candidates fairly and confidently.</p>
+      </div>
+    </div>
+  </div>
+  <div class="home-services-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 L0,40 Q200,25 400,35 T800,30 Q1000,35 1200,25 L1200,60 Z" fill="var(--bg-light)"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="home-success-stories-section" data-layout-spec="Home-success-stories">
+  <div class="home-success-stories-container">
+    <div class="home-success-stories-header">
+      <h2>Hiring outcomes that feel fair—and work</h2>
+      <p>A few examples of how clear role storytelling and structured steps improve confidence for candidates and teams.</p>
+    </div>
+    
+    <div class="home-success-stories-grid-wrapper">
+      <div class="home-success-stories-grid">
+        <article class="home-success-stories-card">
+          <h3>Faster shortlists for frontline services</h3>
+          <p>Streamlined processes helped a regional council reduce time-to-hire by 40% while maintaining quality standards and candidate engagement.</p>
+          <ul class="home-success-stories-bullets">
+            <li><span class="bullet-icon" aria-hidden="true">✓</span> Clear criteria</li>
+            <li><span class="bullet-icon" aria-hidden="true">✓</span> Consistent updates</li>
+            <li><span class="bullet-icon" aria-hidden="true">✓</span> Reduced drop-off</li>
+          </ul>
+        </article>
+        
+        <article class="home-success-stories-card">
+          <h3>More qualified applicants for specialist roles</h3>
+          <p>Impact-focused role narratives attracted 3x more suitable candidates for technical positions in environmental services.</p>
+          <ul class="home-success-stories-bullets">
+            <li><span class="bullet-icon" aria-hidden="true">✓</span> Impact-led role narrative</li>
+            <li><span class="bullet-icon" aria-hidden="true">✓</span> Better expectations</li>
+            <li><span class="bullet-icon" aria-hidden="true">✓</span> Stronger fit</li>
+          </ul>
+        </article>
+        
+        <article class="home-success-stories-card">
+          <h3>Improved candidate sentiment</h3>
+          <p>Transparent communication and accessible touchpoints increased positive feedback scores by 65% across all recruitment campaigns.</p>
+          <ul class="home-success-stories-bullets">
+            <li><span class="bullet-icon" aria-hidden="true">✓</span> Respectful timelines</li>
+            <li><span class="bullet-icon" aria-hidden="true">✓</span> Plain-language steps</li>
+            <li><span class="bullet-icon" aria-hidden="true">✓</span> Accessible touchpoints</li>
+          </ul>
+        </article>
+      </div>
+      
+      <div class="home-success-stories-backplate" aria-hidden="true"></div>
+    </div>
+  </div>
+  
+  <div class="home-success-stories-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 L0,35 Q150,28 300,32 T600,28 Q750,32 900,28 T1200,32 L1200,60 Z" fill="var(--bg-dark)"></path>
+      <path d="M0,35 Q150,28 300,32 T600,28 Q750,32 900,28 T1200,32" stroke="var(--primary)" stroke-width="1.5" fill="none" opacity="0.4"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="home-stats-section" data-layout-spec="Home-stats">
+  <div class="home-stats-container">
+    <div class="home-stats-header">
+      <div class="home-stats-intro">
+        <h2>Trust is built in the details</h2>
+        <p>Consistency, clarity, and candidate care can be measured.</p>
+      </div>
+      <div class="home-stats-reassurance">
+        <p class="home-stats-reassurance-line">Aligned with public sector expectations</p>
+        <p class="home-stats-reassurance-line">Designed for accessibility and plain language</p>
+      </div>
+    </div>
+
+    <div class="home-stats-grid">
+      <div class="home-stats-tile">
+        <div class="home-stats-number">32%</div>
+        <p>Shorter time-to-shortlist</p>
+      </div>
+      <div class="home-stats-tile">
+        <div class="home-stats-number">84%</div>
+        <p>Higher completion of application steps</p>
+      </div>
+      <div class="home-stats-tile">
+        <div class="home-stats-number">47%</div>
+        <p>Fewer candidate inquiries due to clearer steps</p>
+      </div>
+      <div class="home-stats-tile">
+        <div class="home-stats-number">91%</div>
+        <p>More confident hiring teams</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-stats-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="home-stats-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#2B2A28;stop-opacity:1"></stop>
+          <stop offset="100%" style="stop-color:#F5EFE6;stop-opacity:1"></stop>
+        </linearGradient>
+      </defs>
+      <path d="M0,120 L0,40 Q100,38 200,42 T400,38 Q500,42 600,38 T800,42 Q900,38 1000,42 T1200,40 L1200,120 Z" fill="url(#home-stats-gradient)"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="home-cta-section" data-layout-spec="Home-cta">
+  <div class="home-cta-container">
+    <div class="home-cta-panel">
+      <div class="home-cta-content">
+        <h2>Ready to make hiring feel better for everyone?</h2>
+        <p>Tell us what roles you are hiring for and what a great candidate experience should look like. We will suggest a clear, respectful path forward.</p>
+        <div class="home-cta-buttons">
+          <a href="/contact" class="btn-primary">Contact us</a>
+          <a href="/candidates" class="btn-secondary">For candidates</a>
+        </div>
+      </div>
+      <div class="home-cta-illustration">
+        <svg data-no-icon-edit="true" aria-hidden="true" width="140" height="120" viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Library building -->
+          <rect x="10" y="40" width="50" height="60" fill="var(--secondary)" opacity="0.15"></rect>
+          <rect x="15" y="35" width="40" height="5" fill="var(--secondary)" opacity="0.3"></rect>
+          <rect x="20" y="50" width="8" height="12" fill="var(--secondary)" opacity="0.25"></rect>
+          <rect x="32" y="50" width="8" height="12" fill="var(--secondary)" opacity="0.25"></rect>
+          <rect x="44" y="50" width="8" height="12" fill="var(--secondary)" opacity="0.25"></rect>
+          <rect x="20" y="68" width="8" height="12" fill="var(--secondary)" opacity="0.25"></rect>
+          <rect x="32" y="68" width="8" height="12" fill="var(--secondary)" opacity="0.25"></rect>
+          <rect x="44" y="68" width="8" height="12" fill="var(--secondary)" opacity="0.25"></rect>
+          <rect x="25" y="85" width="20" height="15" fill="var(--secondary)" opacity="0.3"></rect>
+          
+          <!-- Park tree -->
+          <circle cx="80" cy="75" r="12" fill="var(--accent)" opacity="0.2"></circle>
+          <rect x="77" y="75" width="6" height="25" fill="var(--accent)" opacity="0.25"></rect>
+          
+          <!-- Transit bus -->
+          <rect x="100" y="65" width="35" height="22" rx="3" fill="var(--primary)" opacity="0.15"></rect>
+          <rect x="105" y="70" width="8" height="8" fill="var(--primary)" opacity="0.25"></rect>
+          <rect x="117" y="70" width="8" height="8" fill="var(--primary)" opacity="0.25"></rect>
+          <circle cx="110" cy="88" r="4" fill="var(--primary)" opacity="0.3"></circle>
+          <circle cx="125" cy="88" r="4" fill="var(--primary)" opacity="0.3"></circle>
+          
+          <!-- Connecting path -->
+          <path d="M 60 95 Q 80 90, 100 92" stroke="var(--border-light)" stroke-width="2" fill="none" opacity="0.4"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+  </main>
+  
+  <footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-column footer-about">
+        <img src="/assets/business-logo.webp" alt="GovTalent" class="logo" />
+        <p class="footer-description">Connecting talented professionals with meaningful public sector careers.</p>
+        <div class="social-links">
+          <a href="[facebook_handle]" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="[instagram_handle]" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="[whatsapp_handle]" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/candidates">For Candidates</a></li>
+          <li><a href="/employers">For Employers</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column footer-contact">
+        <h3>Contact Us</h3>
+        <ul>
+          <li><i class="fas fa-envelope"></i> <a href="mailto:[business_email]">[business_email]</a></li>
+          <li><i class="fas fa-phone"></i> <a href="tel:[business_phone]">[business_phone]</a></li>
+          <li><a href="/"><i class="fas fa-map-marker-alt"></i> <span>[business_address]</span></a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column footer-legal">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms &amp; Conditions</a></li>
+          <li><a href="/accessibility">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p class="copyright">© 2026 GovTalent. All rights reserved.</p>
+      <a href="https://zappy5.com" target="_blank" class="zappy-attribution">Generated by Zappy</a>
+    </div>
+  </div>
+</footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <script src="/script.js"></script>
+
+    <div data-integration="accessibility:toolbar"></div>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+</body></html>
